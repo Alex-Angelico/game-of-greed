@@ -42,4 +42,4 @@ Then select and open ```game.py```
 
 ## Change Log
 
-
+1.0: *Handling special cases for point scoring* - 29 Dec 2020
