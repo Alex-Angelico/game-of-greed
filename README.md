@@ -10,7 +10,7 @@ Authors: Alex Angelico, Anthony Beaver, Ben Hill, Nebiyu Kifle, Sian Culligan
 
 ## Open PR
 
-
+https://github.com/Alex-Angelico/game-of-greed/pull/2
 
 ----
 
