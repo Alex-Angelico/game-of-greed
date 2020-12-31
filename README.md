@@ -2,7 +2,7 @@
 
 ## Game of Greed
 
-Lab 06 Game of Greed 1
+Lab 06 - Game of Greed 1
 
 Authors: Alex Angelico, Anthony Beaver, Ben Hill, Nebiyu Kifle, Sian Culligan
 
@@ -42,4 +42,5 @@ Then select and open ```game.py```
 
 ## Change Log
 
-1.0: *Handling special cases for point scoring* - 29 Dec 2020
+0.5: *Handling all point scoring cases, random dice roll generation, and shelf/balance interations for point banking.* - 30 Dec 2020
+0.1: *Handling special cases for point scoring.* - 29 Dec 2020

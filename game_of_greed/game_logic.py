@@ -1,12 +1,44 @@
 import collections
+import random
 
 
 class GameLogic:
+    """
+    Description: Builds GameLogic objects for rolling dice calculating points scored from dice rolls
+
+    Methods
+    __init__
+        Args:
+            self: GameLogic object instance containing dice roll generation and point scoring rules
+            score: Integer for points accumulated from dice rolls
+            roll_round: Under development
+        Returns:
+            None
+
+    roll_dice
+        Args:
+            dice_count: Integer for number of dice rolled during a game round
+        Returns:
+            dice_holder: Tuple of integers representing 1-6 dice rolls
+
+    calculate_score
+        Args:
+            self: Tuple of integers representing 1-6 dice rolls
+        Returns:
+            score: Integer of points yielded from dice roll combinations
+    """
 
     def __init__(self, score=0, roll_round=0):
         # self.dice_roll = dice_roll
         self.score = score
         self.roll_round = roll_round
+
+    @staticmethod
+    def roll_dice(dice_count):
+        dice_holder = []
+        for i in range(dice_count):
+            dice_holder.append(random.randint(1, 6))
+        dice_holder = tuple(dice_holder)
 
     @staticmethod
     def calculate_score(self):
@@ -63,15 +95,11 @@ class GameLogic:
                         score += 200
                     elif item[0] == 5:
                         score += 100
-                    else:
-                        pass
                 elif item[1] == 1:
                     if item[0] == 1:
                         score += 100
                     elif item[0] == 5:
                         score += 50
-                    else:
-                        pass
 
             return score
 
@@ -79,4 +107,5 @@ class GameLogic:
 if __name__ == "__main__":
     new_game = GameLogic()
 
-    new_game.calculate_score((5,))
+    new_game.roll_dice(4)
+    new_game.calculate_score((5, 6, 2, 4, 4, 1))
