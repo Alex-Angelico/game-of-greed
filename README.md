@@ -42,5 +42,5 @@ Then select and open ```game.py```
 
 ## Change Log
 
-0.5: *Handling all point scoring cases, random dice roll generation, and shelf/balance interations for point banking.* - 30 Dec 2020
+0.5: *Handling all point scoring cases, random dice roll generation, and shelf/balance interations for point banking.* - 30 Dec 2020  
 0.1: *Handling special cases for point scoring.* - 29 Dec 2020
