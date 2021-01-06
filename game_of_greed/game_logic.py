@@ -39,6 +39,7 @@ class GameLogic:
         for i in range(dice_count):
             dice_holder.append(random.randint(1, 6))
         dice_holder = tuple(dice_holder)
+        return dice_holder
 
     @staticmethod
     def calculate_score(self):
