@@ -34,7 +34,7 @@ class GameLogic:
         self.roll_round = roll_round
 
     @staticmethod
-    def roll_dice(dice_count):
+    def roll_dice(dice_count=0):
         dice_holder = []
         for i in range(dice_count):
             dice_holder.append(random.randint(1, 6))

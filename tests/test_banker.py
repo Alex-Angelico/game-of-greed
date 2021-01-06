@@ -1,4 +1,3 @@
-
 import pytest
 from game_of_greed.banker import Banker
 
