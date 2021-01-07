@@ -51,7 +51,7 @@ class GameLogic:
             score += 1500
             return score
 
-        elif len(counter) == 3 and commonest[0][1] == 2:
+        elif len(counter) == 3 and commonest[0][1] == 2 and commonest[1][1] == 2 and commonest[2][1] == 2:
             score += 1500
             return score
 
