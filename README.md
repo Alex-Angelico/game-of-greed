@@ -3,6 +3,7 @@
 ## Game of Greed
 
 Lab 06 - Game of Greed 1
+Lab 07 - Game of Greed 2
 
 Authors: Alex Angelico, Anthony Beaver, Ben Hill, Nebiyu Kifle, Sian Culligan
 
@@ -10,7 +11,7 @@ Authors: Alex Angelico, Anthony Beaver, Ben Hill, Nebiyu Kifle, Sian Culligan
 
 ## Open PR
 
-https://github.com/Alex-Angelico/game-of-greed/pull/2
+https://github.com/Alex-Angelico/game-of-greed/pull/7
 
 ----
 
@@ -42,5 +43,7 @@ Then select and open ```game.py```
 
 ## Change Log
 
+1.0: *Handling all dice rolling, point calculations for shelved and banked points.* - 6 Jan 2021
 0.5: *Handling all point scoring cases, random dice roll generation, and shelf/balance interations for point banking.* - 30 Dec 2020  
 0.1: *Handling special cases for point scoring.* - 29 Dec 2020
+
