@@ -1,11 +1,11 @@
 import time
 #uncomment for testing:
-from game_of_greed.game_logic import GameLogic
-from game_of_greed.banker import Banker
+# from game_of_greed.game_logic import GameLogic
+# from game_of_greed.banker import Banker
 
 #uncomment for main:
-# from game_logic import GameLogic
-# from banker import Banker
+from game_logic import GameLogic
+from banker import Banker
 
 
 class Game:
@@ -60,16 +60,35 @@ class Game:
             time.sleep(1)
             print(f"*** {for_printing}***")
 
-            # # Farkle before choosing dice logic here:
-            # possible_farkle = self.helper_calc(rolled_die)
-            # #print('possible_farkle', possible_farkle)
-            # if possible_farkle <= 0:
+            # Farkle before choosing dice logic here:
+            # possible_farkle = self._calculate(rolled_die)
+            # print('possible_farkle', possible_farkle)
+            # if possible_farkle <= 0 and num_die_to_roll == 0:
             #     print('FARKLE! No points!')
             #     self.round_num += 1
             #     num_die_to_roll = 6
             #     self.banker.clear_shelf()
             #     print("self.banker.shelved", self.banker.shelved)
             #     continue
+            # elif possible_farkle > 0 and num_die_to_roll == 0:
+            #     print("Enter dice to keep, (b)ank, (r)oll again, or (q)uit:")
+            #     bank_roll_quit = input("> ").lower()
+            #     if bank_roll_quit == 'q':
+            #         self.quit_game()
+            #         break
+            #     if bank_roll_quit == 'r':
+            #         self.banker.shelf(shelf_points)
+            #         num_die_to_roll = 6
+            #         #print(self.banker.shelved) # Does have points
+            #         continue
+            #     elif bank_roll_quit == 'b':
+            #         self.banker.shelf(shelf_points)
+            #         print(f'You banked {self.banker.shelved} points in round {self.round_num}')
+            #         self.banker.bank()
+            #         print(f'Total score is {self.banker.balance} points')
+            #         self.round_num += 1
+            #         num_die_to_roll = 6
+            #         continue
             # # Farkle logic end
 
             print("Enter dice to keep, or (q)uit:")
@@ -91,8 +110,8 @@ class Game:
                 # Farkle Logic
                 # if shelf_points > 0 and num_die_to_roll == 0:
                 #     print('Farkle!')
-                #     num_die_to_roll = 6
                 #     self.round_num += 1
+                #     num_die_to_roll = 6
                 #     continue
                 # Farkle Logic
 
@@ -102,6 +121,8 @@ class Game:
                 if roll_bank_quit == 'r':
                     self.banker.shelf(shelf_points)
                     #print(self.banker.shelved) # Does have points
+                    if num_die_to_roll == 0:
+                        num_die_to_roll = 6
                     continue
                 elif roll_bank_quit == 'b':
                     self.banker.shelf(shelf_points)
