@@ -49,16 +49,21 @@ class Game:
         while self.round_num < 21:
             # if num_die_to_roll == 0 and self.banker.shelved > 0:
             #     print('Farkle!')  
-            for_printing = ""
+            # for_printing = ""
 
             # Dice rolling starts here!
             rolled_die = self._roller(num_die_to_roll)
-            for num in range(num_die_to_roll):
-                for_printing += f"{str(rolled_die[num])} "
             print(f"Starting round {self.round_num}")
             print(f"Rolling {num_die_to_roll} dice...")
             time.sleep(1)
+            for_printing = print_die(num_die_to_roll, rolled_die)
+            # for num in range(num_die_to_roll):
+            #     for_printing += f"{str(rolled_die[num])} "
             print(f"*** {for_printing}***")
+
+            # is_cheating = False
+            # while is_cheating == False:
+
 
             # Farkle before choosing dice logic here:
             # possible_farkle = self._calculate(rolled_die)
@@ -94,47 +99,54 @@ class Game:
             print("Enter dice to keep, or (q)uit:")
             dice_or_quit = input("> ").lower()
             # print(type(dice_or_quit)) It's a string currently
+
             if dice_or_quit == 'q':
                 self.quit_game()
                 break
             else:
-                int_die = []
-                list_die = list(dice_or_quit)
-                for nums in list_die:
-                    int_die.append(int(nums))
-                #print(int_die) # this is now a list of ints
-                shelf_points = self._calculate(int_die)
-                to_subtract = len(int_die)
-                num_die_to_roll = num_die_to_roll - to_subtract
+                # old logic to convert from tuple to int, now a function called converted_die
+                # int_die = []
+                # list_die = list(dice_or_quit)
+                # for nums in list_die:
+                #     int_die.append(int(nums))
+                converted_die = convert_to_int(dice_or_quit)
+                    
+                # runs the validator to check if the user cheated, returns the length of new dice to roll:
+                check, returned_input = self.validator(num_die_to_roll, rolled_die, converted_die)
+                converted_validated = convert_to_int(returned_input)
+                #print('returned_input', converted_validated)
+                if check:
+                    #print(int_die) # this is now a list of ints
+                    shelf_points = self._calculate(converted_validated)
+                    to_subtract = len(converted_validated)
+                    num_die_to_roll -= to_subtract
 
-                # Farkle Logic
-                # if shelf_points > 0 and num_die_to_roll == 0:
-                #     print('Farkle!')
-                #     self.round_num += 1
-                #     num_die_to_roll = 6
-                #     continue
-                # Farkle Logic
+                    # Farkle Logic
+                    # if shelf_points > 0 and num_die_to_roll == 0:
+                    #     print('Farkle!')
+                    #     self.round_num += 1
+                    #     num_die_to_roll = 6
+                    #     continue
+                    # Farkle Logic
 
-                print(f"You have {shelf_points} unbanked points and {num_die_to_roll} dice remaining")
-                print(f"(r)oll again, (b)ank your points or (q)uit:")
-                roll_bank_quit = input("> ").lower()
-                if roll_bank_quit == 'r':
                     self.banker.shelf(shelf_points)
-                    #print(self.banker.shelved) # Does have points
-                    if num_die_to_roll == 0:
+                    print(f"You have {self.banker.shelved} unbanked points and {num_die_to_roll} dice remaining")
+                    print(f"(r)oll again, (b)ank your points or (q)uit:")
+                    roll_bank_quit = input("> ").lower()
+                    if roll_bank_quit == 'r':
+                        if num_die_to_roll == 0:
+                            num_die_to_roll = 6
+                        continue
+                    elif roll_bank_quit == 'b':
+                        print(f'You banked {self.banker.shelved} points in round {self.round_num}')
+                        self.banker.bank()
+                        print(f'Total score is {self.banker.balance} points')
+                        self.round_num += 1
                         num_die_to_roll = 6
-                    continue
-                elif roll_bank_quit == 'b':
-                    self.banker.shelf(shelf_points)
-                    print(f'You banked {self.banker.shelved} points in round {self.round_num}')
-                    self.banker.bank()
-                    print(f'Total score is {self.banker.balance} points')
-                    self.round_num += 1
-                    num_die_to_roll = 6
-                    continue
-                elif roll_bank_quit == 'q':
-                    self.quit_game()
-                    break
+                        continue
+                    elif roll_bank_quit == 'q':
+                        self.quit_game()
+                        break
 
                 ############################
                 # verification stretch goal (not completed):
@@ -154,6 +166,29 @@ class Game:
 
         # self.round_num += 1 add this after bank/farkle
         # pass
+    def validator(self, dice_rolled, rolling_die, user_input):
+        listed = list(rolling_die)
+        
+        for i in user_input:
+            if int(i) in listed:
+                listed.remove(int(i))
+            else:
+                print("Cheater!!! Or possibly made a typo...")
+                #print(rolling_die)
+                for_printing = print_die(dice_rolled, rolling_die)
+                print(f"*** {for_printing}***")
+                user_input = input('Enter dice to keep, or (q)uit: ')
+                if user_input == 'q':
+                    self.quit_game()
+                    break
+                else:
+                    # listed = list(rolling_die)
+                    #print('out of loop length of list die: ', len(listed))
+                    list_it_out = user_input
+                    self.validator(dice_rolled, rolling_die, list_it_out)
+                    break
+        #print('user_input', user_input)
+        return True, user_input
 
     def quit_game(self):
         print(f'Thanks for playing. You earned {self.banker.balance} points')
@@ -167,6 +202,20 @@ class Game:
     #         #print(int_die) # this is now a list of ints
     #     shelf_points = self._calculate(int_die)
     #     return shelf_points
+
+def print_die(dice_print, rolled):
+        for_printing = ""
+        for num in range(dice_print):
+            for_printing += f"{str(rolled[num])} "
+        return for_printing
+
+#used to convert a tuple into ints
+def convert_to_int(dice_tup):
+    returning_die = []
+    list_die = list(dice_tup)
+    for nums in list_die:
+        returning_die.append(int(nums))
+    return returning_die
 
 if __name__ == "__main__":
     game = Game()
