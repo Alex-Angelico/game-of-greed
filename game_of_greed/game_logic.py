@@ -104,6 +104,8 @@ class GameLogic:
 
             return score
 
+    # def validate_keepers(rolled, user_selected):
+
 
 if __name__ == "__main__":
     new_game = GameLogic()
